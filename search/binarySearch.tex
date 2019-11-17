@@ -18,14 +18,14 @@
 		\\
 		\textbf{Output:} Index of element in array if found, or -1
 		\begin{algorithmic}
-			\Procedure{Binary\_Search}{$array$, $n$, $element$}
+			\Procedure{Binary\_Search}{$A$, $n$, $e$}
 				\State $ L \gets 0 $
 				\State $ R \gets n-1 $
 				\While{$ L \leq R $}
 					\State $ m \gets \lfloor (L + R)/2 \rfloor $
-					\If{$ array[m] == element $}
+					\If{$ A[m] = e $}
 						\Return $ m $
-					\ElsIf{$ array[m] < element $}
+					\ElsIf{$ A[m] < e $}
 						\State $ l \gets m + 1 $
 					\Else
 						\State $ r \gets m - 1 $
