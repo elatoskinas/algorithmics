@@ -1,0 +1,42 @@
+\documentclass[12pt,a4paper]{article}
+
+% Text
+\usepackage[english]{babel}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+% Algorithms
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\begin{document}
+	\begin{algorithm}
+		\textbf{Input:} Graph $ G = \langle V, E \rangle $
+		\\\textbf{Output:} Edge set $ T $ forming a min. span tree
+		\\\Comment Here, the $ MakeSet, FindSet, Union $ make use of a disjoint-set structure.
+		\begin{algorithmic}
+			\Procedure{Kruskal}{$ G $}
+				\State $ T \gets \emptyset $ \Comment set of edges
+				\State $ S \gets \emptyset $ \Comment set of disjoint sets
+				
+				\\\For{$ v \in V $}
+					\State $ S \gets S \cup MakeSet(v) $
+				\EndFor
+				
+				\\\For{$ (u,v) \in G.E $ (ordered by weight)}
+					\State $ set_u \gets FindSet(u) $
+					\State $ set_v \gets FindSet(v) $
+					\If{$ set_u \neq set_v $}
+						\State $ T \gets T \cup \{(u,v)\} $
+						\State $ Union(set_u, set_v) $
+					\EndIf
+				\EndFor
+				
+				\\\Return $ T $
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+\end{document}
