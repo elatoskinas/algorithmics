@@ -1,0 +1,58 @@
+\documentclass[12pt,a4paper]{article}
+
+% Text
+\usepackage[english]{babel}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+% Algorithms
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\begin{document}
+	\begin{algorithm}
+		\textbf{Input:} Graph $ G = \langle V, E \rangle $, source node $ source $
+		\\\textbf{Output:} Two lists of distances and predecessors for each node
+		\\
+		\begin{algorithmic}
+			\Procedure{Dijkstra}{$ G, source $}
+				\State $ dist \gets $ initialize to array of size $ |G.V| $
+				\State $ prev \gets $ initialize to array of size $ |G.V| $
+				\State $ Q \gets $ empty priority queue with vertex as value and weight as key
+				\\
+				\For{$ v \in G.V $}
+					\If{$ v \neq source $}
+						\State $ dist[v] \gets \infty $
+					\EndIf
+					\State $ prev[v] \gets $ UNDEFINED
+				\EndFor
+				\\
+				\State $ dist[source] \gets 0 $
+				\State $ Q.push(source, 0) $
+				\\
+				\While{$ Q \neq \emptyset $}
+					\State $ u \gets Q.remove\_min() $
+					\\
+					\For{$ e = (u, v) \in n.outgoing $}
+						\State $ w \gets dist[u] + e.weight $
+						\\
+						\If{$ w < dist[v] $}
+							\State $ dist[v] \gets w $
+							\If{$ prev[v] = $ UNDEFINED}
+								\State $ Q.add(v, w) $
+							\Else
+								\State $ Q.update\_priority(v, w) $
+							\EndIf
+							\State $ prev[v] \gets u $
+						\EndIf
+					\EndFor
+				\EndWhile
+				\\
+				\Return $ dist, prev $
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+\end{document}
