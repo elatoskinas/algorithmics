@@ -63,4 +63,45 @@
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
+
+	\begin{algorithm}
+		\textbf{Input:} Graph $ G = \langle V, E \rangle $
+		\\\textbf{Output:} Edge set $ T $ forming a min. span tree
+		\begin{algorithmic}
+			\Procedure{Prim\_Jarnik}{$ G $}
+			\State $ dist \gets $ initialize to array of size $ |G.V| $
+			\State $ Q \gets $ empty priority queue with vertex as value and weight as key
+			\State $ T \gets \emptyset $
+			\\
+			\State $ s \gets $ some node $ \in G.V $ \Comment Here, the choice of the node does not matter
+			\State $ dist[s] \gets 0 $
+			\\
+			\For{$ v \in G.V $}
+				\State $ dist[v] \gets \infty $
+				\If{$ v \neq s $}
+					\State $ Q.add(v, \infty) $
+				\EndIf
+			\EndFor
+			\\
+			\State $ Q.push(s, 0) $
+			\\
+			\While{$ Q \neq \emptyset $}
+				\State $ u \gets Q.remove\_min() $
+				\\
+				\If{$ dist[u] = \infty $}
+					\State \Return UNDEFINED \Comment Spanning tree does not exist
+				\EndIf
+				\\
+				\For{$ e = (u, v) \in u.edges $}
+					\If{$ e.weight < dist[v] $}
+						\State $ dist[v] \gets w $
+						\State $ Q.update\_priority(v, w) $
+				\EndIf
+				\EndFor
+			\EndWhile
+			\\
+			\Return $ T $
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
 \end{document}
