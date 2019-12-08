@@ -17,6 +17,7 @@
 		\textbf{Input:} Graph $ G = \langle V, E \rangle $
 		\\\textbf{Output:} Edge set $ T $ forming a min. span tree
 		\\\Comment Here, the $ MakeSet, FindSet, Union $ make use of a disjoint-set structure.
+		\\
 		\begin{algorithmic}
 			\Procedure{Kruskal}{$ G $}
 				\State $ T \gets \emptyset $ \Comment set of edges
@@ -36,6 +37,29 @@
 				\EndFor
 				
 				\\\Return $ T $
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}
+		\textbf{Input:} Graph $ G = \langle V, E \rangle $
+		\\\textbf{Output:} $ E $ of $ G $ containing only the edges belonging to a min. span tree
+		\\\Comment Connectivity can be checked via graph traversal algorithms, namely BFS or DFS.
+		\\
+		\begin{algorithmic}
+			\Procedure{Reverse\_Delete}{$ G $}
+				\State Sort $ G.E $ in descending order
+				\State $ i \gets 0 $
+				\While{$ i < |E| $}
+					\State $ e \gets E[i] $
+					\State Delete $ e $ \Comment $ i $ is now at the next edge
+					\If{$ G $ not connected}
+						\State $ E[i] \gets e $ \Comment Re-add edge
+						\State $ i \gets i + 1 $ \Comment Move on to next edge
+					\EndIf
+				\EndWhile
+				\\
+				\Return $ G.E $ 
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
