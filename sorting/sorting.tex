@@ -57,4 +57,65 @@
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
+
+	\begin{algorithm}
+		\textbf{Input:} Array $ A $, left and right indices $ l $ and $ r $ corresponding to the
+		index bounds of the array that should be sorted
+		\\\textbf{Output:} Sorted array $ A $ (in-place) [only sorts between $ l $ and $ r $ inclusive]
+		\begin{algorithmic}
+			\Procedure{Quick\_Sort}{$ A, l, r $}
+				\If {$ l < r $}
+					\State $ p \gets Partition(A, l, r) $
+					\State $ Quick\_Sort(A, l, p - 1) $
+					\State $ Quick\_Sort(A, p + 1, r) $
+				\EndIf
+			\EndProcedure
+			\\\\
+			\textbf{Input:} Array $ A $, left and right indices $ l $ and $ r $ corresponding to bounds of the array to partition
+			\\\textbf{Output:} Partitioned array $ A $ (in-place); The function itself returns the index $ p $ corresponding to the element $ e $ that was chosen for partitioning. Everything to the left of $ e $ will be smaller than $ e $, and everything to the right of $ e $ will be greater or equal to $ e $.
+			\\
+			\\\textbf{Lomuto partition scheme}
+			\Procedure{Partition}{$ A, l, r $}
+				\State $ pivot \gets A[r] $
+				\State $ i \gets l $
+				\\
+				\For{$ j \gets l $ \textbf{to} $ r - 1 $}
+					\If{$ A[j] < pivot $}
+						\State Swap $ A[i] $ with $ A[j] $
+						\State $ i \gets i + 1 $
+					\EndIf
+				\EndFor
+				\\
+				\State Swap $ A[i] $ with $ A[r] $
+				\State \Return $ i $
+			\EndProcedure
+			\\
+			\\\textbf{Hoare partition scheme}
+			\Procedure{Partition}{$ A, l, r $}
+				\State $ mid \gets l + (r - l)/2 $
+				\State $ pivot \gets A[mid] $
+				\State $ i \gets l - 1 $
+				\State $ j \gets r + 1 $
+				\While{$ i < j $}
+					\State $ i \gets i + 1 $
+					
+					\While{$ A[i] < pivot $}
+						\State $ i \gets i + 1 $
+					\EndWhile
+					\\
+					\State $ j \gets j - 1 $
+					
+					\While{$ A[j] \geq pivot$}
+						\State $ j \gets j - 1 $
+					\EndWhile
+					\\
+					\If{$ i < j $}
+						\State Swap $ A[i] $ with $ A[j] $
+					\Else{}
+						\State \Return $ j $
+					\EndIf
+				\EndWhile
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
 \end{document}
