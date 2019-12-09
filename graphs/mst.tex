@@ -66,7 +66,7 @@
 
 	\begin{algorithm}
 		\textbf{Input:} Graph $ G = \langle V, E \rangle $
-		\\\textbf{Output:} Edge set $ T $ forming a min. span tree
+		\\\textbf{Output:} Total cost $ c $ of minimum spanning tree of $ G $
 		\begin{algorithmic}
 			\Procedure{Prim\_Jarnik}{$ G $}
 			\State $ dist \gets $ initialize to array of size $ |G.V| $
@@ -75,6 +75,7 @@
 			\\
 			\State $ s \gets $ some node $ \in G.V $ \Comment Here, the choice of the node does not matter
 			\State $ dist[s] \gets 0 $
+			\State $ c \gets 0 $
 			\\
 			\For{$ v \in G.V $}
 				\State $ dist[v] \gets \infty $
@@ -87,9 +88,10 @@
 			\\
 			\While{$ Q \neq \emptyset $}
 				\State $ u \gets Q.remove\_min() $
+				\State $ c \gets c + dist[u] $
 				\\
 				\If{$ dist[u] = \infty $}
-					\State \Return UNDEFINED \Comment Spanning tree does not exist
+					\State \Return $ \infty $ \Comment Spanning tree does not exist
 				\EndIf
 				\\
 				\For{$ e = (u, v) \in u.edges $}
@@ -100,7 +102,7 @@
 				\EndFor
 			\EndWhile
 			\\
-			\Return $ T $
+			\Return $ c $
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
