@@ -1,0 +1,55 @@
+\documentclass[12pt,a4paper]{article}
+
+% Text
+\usepackage[english]{babel}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+% Algorithms
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\begin{document}
+	\begin{algorithm}
+		For our disjoint set structure, every element has an associated $ parent $, $ rank $ and $ size $. The functions below are part of the disjoint set structure itself.
+		\\
+		\begin{algorithmic}
+			\Procedure{Make\_Set}{$ x $}
+				\If{$ x $ not present in structure}
+					\State add $ x $ to structure
+					\State $ x.parent \gets x $
+					\State $ x.size \gets 1 $
+					\State $ x.rank \gets 0 $
+				\EndIf
+			\EndProcedure
+			\\
+			\\\textbf{Path compression find}
+			\Procedure{Find}{$ x $}
+				\If{$ x \neq x.parent $}
+					\State $ x.parent \gets Find(x.parent) $
+				\EndIf
+				\Return $ x.parent $
+			\EndProcedure
+			\\
+			\\\textbf{Union by Rank}
+			\Procedure{Union}{$ x $, $ y $}
+				\State $ xRoot \gets Find(x) $
+				\State $ yRoot \gets Find(y) $
+				\\
+				\If{$ xRoot \neq yRoot $} \Comment Only union if sets are different
+					\If{$ xRoot.rank < yRoot.rank $}
+						\State $ xRoot, yRoot \gets yRoot, xRoot $ \Comment Swap roots so that $x$ is largest
+					\EndIf
+					\\
+					\State $ yRoot.parent = xRoot $
+					\If{$ xRoot.rank = yRoot.rank $}
+						\State $ xRoot.rank \gets xRoot.rank + 1 $
+					\EndIf
+				\EndIf
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+\end{document}
