@@ -1,0 +1,56 @@
+\documentclass[12pt,a4paper]{article}
+
+% Text
+\usepackage[english]{babel}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+% Algorithms
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\begin{document}
+	\begin{algorithm}
+		\textbf{Input:} Array $ A = [a_1, a_2, ..., a_n] $.
+		\\\textbf{Result:} Sorted array $ A $
+		
+		\begin{algorithmic}
+			\Procedure{Merge\_Sort}{$ A $}
+				\If{$ |A| \leq 1 $}
+					\Return
+				\EndIf
+				\State $ mid \gets \lfloor |A|/2 \rfloor $
+				\State $ A_l \gets [A_1, A_2, ..., A_{mid}] $
+				\State $ A_r \gets [A_{mid+1}, A_{mid+2}, ..., A_{|A|}] $
+				\\
+				\State $ Merge\_Sort(A_l) $
+				\State $ Merge\_Sort(A_r) $
+				\\
+				\State $ Combine(A, A_l, A_r) $
+				\State \Return
+			\EndProcedure
+		\end{algorithmic}
+		~\\
+		\begin{algorithmic}
+			\Procedure{Combine}{$ A, L, R $}
+				\State $ l \gets 0 $ \Comment Here, we use 0-based indexing
+				\State $ r \gets 0 $
+				\State $ i \gets 0 $ \Comment Index for array $ A $
+				\\
+				\While{$ l < |L| $ OR $ r < |R| $ }
+					\If{$ (l < |L|) $ AND $ (r \geq |R| $ OR $ L[l] \leq R[r]) $}
+						\State $ A[i] \gets L[l] $
+						\State $ l \gets l + 1 $
+					\Else
+						\State $ A[i] \gets R[r] $
+						\State $ r \gets r + 1 $
+					\EndIf
+					\State $ i \gets i + 1 $
+				\EndWhile
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+\end{document}
