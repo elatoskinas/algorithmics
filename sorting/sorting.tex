@@ -96,7 +96,7 @@
 				\State $ pivot \gets A[mid] $
 				\State $ i \gets l - 1 $
 				\State $ j \gets r + 1 $
-				\While{$ i < j $}
+				\While{$ true $}
 					\State $ i \gets i + 1 $
 					
 					\While{$ A[i] < pivot $}
@@ -105,7 +105,7 @@
 					\\
 					\State $ j \gets j - 1 $
 					
-					\While{$ A[j] \geq pivot$}
+					\While{$ A[j] > pivot$}
 						\State $ j \gets j - 1 $
 					\EndWhile
 					\\
