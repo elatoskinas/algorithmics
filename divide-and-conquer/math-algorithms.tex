@@ -36,4 +36,33 @@
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
+
+	\begin{algorithm}
+		\textbf{Karatsuba's algorithm for integer multiplication}
+		\begin{algorithmic}
+			\Procedure{multiply}{$ num_1, num_2 $}
+				\If{$ num_1 < 10 $ OR $ num_2 < 10 $}
+					\State \Return $ num_1 * num_2 $
+				\EndIf
+				\\
+				\State $ m \gets min{(size\_base10(num_1), size\_base10(num_2))} $
+				\State $ mid \gets \lfloor m/2 \rfloor $
+				\\
+				\State $ x_1 \gets mid $ higher order bits of $ num_1 $
+				\State $ x_0 \gets $ remaining (after $ x_1 $ split) lower order bits of $ num_1 $
+				\State $ y_1 \gets mid $ higher order bits of $ num_2 $
+				\State $ y_0 \gets $ remaining (after $ y_1 $ split) lower order bits of $ num_2 $
+				\\
+				\State $ xSum = x_0 + x_1 $
+				\State $ ySum = y_0 + y_1 $
+				\\
+				\State $ x_0y_0 = multiply(x_0, y_0) $
+				\State $ x_1y_1 = multiply(x_1, y_1) $
+				\State $ xyProd = multiply(xSum, ySum) $
+				\State $ xyTerm = xyProd - x_0y_0 - x_1y_1 $
+				\\
+				\State \Return $ x_1y_1 * 10^{2*mid} + xyTerm * 10^{mid} + x_0y_0 $
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
 \end{document}
