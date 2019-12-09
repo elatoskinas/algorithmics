@@ -1,0 +1,89 @@
+\documentclass[12pt,a4paper]{article}
+
+% Text
+\usepackage[english]{babel}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+% Algorithms
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\begin{document}
+	\begin{algorithm}
+		\textbf{Input:} List $ P $ of points $ (x, y) $
+		\\\textbf{Output:} A pair of 2 points that have the smallest distance
+		\\\textbf{Note:} Assume we have some distance function $ d(x, y) $ which returns the
+		distance between points $ x $ and $ y $. An example of such function would be the Euclidean
+		distance.
+		\begin{algorithmic}
+			\Procedure{Closest\_Pair}{$ P $}
+				\State $ P_x \gets $ list of points in $ P $ sorted by x coordinate
+				\State $ P_y \gets $ list of points in $ P $ sorted by y coordinate
+				\State \Return $ Closest\_Pair(P_x, P_y) $
+			\EndProcedure
+		\end{algorithmic}
+		~\\
+		\begin{algorithmic}
+			\Procedure{Closest\_Pair}{$ P_x, P_y $}
+				\If{$ |P_x| \leq 3 $} \Comment For the base case, we will use brute force
+					\\\Comment Yields constant time, since $ |P_x| $ is very small
+					\State \Return $ Closest\_Pair\_Brute\_Force(P_x) $
+				\EndIf
+				\\
+				\State $ mid \gets \lfloor|P|/2\rfloor $
+				\State $ L_x \gets $ elements in index range $ [1, mid] $ from $ P_x $
+				\State $ L_y \gets $ elements from $ L_x $ sorted by $ y $ coordinate (construct from $ P_y $)
+				\State $ R_x \gets $ elements in index range $ [mid+1, |P_x|] $ from $ P_x $
+				\State $ R_y \gets $ elements from $ R_x $ sorted by $ y $ coordinate (construct from $ P_y $)
+				\\
+				\State $ (l_1, l_2) \gets Closest\_Pair(L_x, L_y) $
+				\State $ (r_1, r_2) \gets Closest\_Pair(R_x, R_y) $
+				\\
+				\State $ x_{mid} \gets P[mid] $
+				\State $ \delta \gets \min{(d(l_1, l_2), d(r_1, r_2))} $
+				\State $ C \gets $ points from $ P $ with $ |x_{mid} - x| < \delta $, sorted by $ y $ coordinate (construct from $ P_y $)
+				\\
+				\State $ c \gets (l_1, l_2) $
+				\If{$ d(r_1, r_2) = \delta $}
+					\State $ c \gets (r_1, r_2) $
+				\EndIf
+				\\
+				\For{$ i \gets 0 $ \textbf{to} $ |C| - 1 $}
+					\Comment The inner loop will actually only check at most 6 points (proven, but not in this document), so we have constant time for the inner loop.
+					\State $ j \gets i+1 $
+					\While{$ j < |C| $ AND $ ((C[j].y - C[i].y) < \delta) $}
+						\If{$ d(C[j], C[i]) < \delta $}
+							\State $ \delta \gets d(C[j], C[i]) $
+							\State $ c \gets (C[i], C[j]) $
+						\EndIf
+					\EndWhile
+				\EndFor
+				\\
+				\Return $ c $
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+	\begin{algorithm}
+		\begin{algorithmic}
+			\Procedure{Closest\_Pair\_Brute\_Force}{$ P $}
+				\State $ d \gets \infty $
+				\State $ c \gets $ UNDEFINED
+				\For{$ p_1 \in P $}
+					\For{$ p_2 \in P \neq p_1 $}
+						\State $ d_{12} \gets d(p_1, p_2) $
+						\\
+						\If{$ d_{12} < d $}
+							\State $ d \gets d_{12} $
+							\State $ c \gets (p_1, p_2) $
+						\EndIf
+					\EndFor
+				\EndFor
+				\Return $ c $
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+\end{document}
