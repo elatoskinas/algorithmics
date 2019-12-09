@@ -1,0 +1,39 @@
+\documentclass[12pt,a4paper]{article}
+
+% Text
+\usepackage[english]{babel}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+% Algorithms
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\begin{document}
+	\begin{algorithm}
+		\begin{algorithmic}
+			\Procedure{Binary\_Exp}{$ x, n $}
+				\If{$ n = 0 $}
+					\Return $ 1 $
+				\EndIf
+			
+				\If{$ n = 1 $}
+					\Return $ x $
+				\EndIf
+				
+				\\
+				
+				\If{$ n \ \% \ 2 = 0 $}
+					\State $ y \gets Binary\_Exp(x, n/2) $
+					\State \Return $ y * y $
+				\Else
+					\State $ y \gets Binary\_Exp(x, \lfloor n/2 \rfloor) $
+					\State \Return $ x * y * y $
+				\EndIf
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+\end{document}
