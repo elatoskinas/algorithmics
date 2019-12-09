@@ -31,7 +31,7 @@
 						\State $ r \gets m - 1 $
 					\EndIf
 				\EndWhile
-				\Return $ -1 $
+				\State \Return $ -1 $
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
@@ -55,6 +55,12 @@
 					\State \Return $ Ternary\_Searcch(f, left, right\_third, precision) $
 				\EndIf
 			\EndProcedure
+		\end{algorithmic}
+		~\\Alternative base case (when searching for concrete element):
+		\begin{algorithmic}
+			\If {$ |right - left| < 3 $}
+				\State \Return Maximum element in range $ [left, right] $
+			\EndIf
 		\end{algorithmic}
 	\end{algorithm}
 \end{document}
