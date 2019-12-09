@@ -1,0 +1,50 @@
+\documentclass[12pt,a4paper]{article}
+
+% Text
+\usepackage[english]{babel}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+% Algorithms
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\begin{document}
+	\begin{algorithm}
+		\textbf{Input:} Graph $ G = \langle V, E \rangle $
+		\\\textbf{Output:} List $ L $ containing topologically ordered vertices of $ G $, or empty if a topological order does not exist.
+		\begin{algorithmic}
+			\Procedure{Topological\_Sort}{$ G $}
+				\State $ S \gets \emptyset $ \Comment corresponds to set of vertices containing no incoming edges
+				\State $ L \gets $ initialize empty List
+				\\
+				\For{$ v \in G.V $}
+					\If{$ v $ has no incoming edges}
+						\State $ S \gets S \cup \{v\} $
+					\EndIf
+				\EndFor
+				\\
+				\While{$ S \neq \emptyset $}
+					\State $ v \gets $ remove any vertex from $ S $
+					\State Add $ u $ to tail of List $ L $
+					\\
+					\For{$ e = (v, u) \in v.outgoing $}
+						\State Remove edge $ e $ from graph
+						\If{$ u $ has no incoming edges}
+							\State $ S \gets S \cup \{u\} $
+						\EndIf
+					\EndFor
+				\EndWhile
+				\\
+				\If{$ |L| = |G.V| $}
+					\State \Return $ L $
+				\Else
+					\State \Return empty list \Comment Topological ordering cannot be formed
+				\EndIf
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+\end{document}
