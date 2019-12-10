@@ -1,0 +1,48 @@
+\documentclass[12pt,a4paper]{article}
+
+% Text
+\usepackage[english]{babel}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+% Algorithms
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\begin{document}
+	\begin{algorithm}
+		\textbf{Input:} Set of pairs $ S = {(c_1, f_1), (c_2, f_2), ..., (c_n, f_n)} $, where $ c_i $ is a character, and $ f_i $ is the frequency of the character and $ \sum_{i=1}^{n}{f_i} = 1 $
+		\\\textbf{Output:} Tree $ T $ corresponding to an optimal prefix tree for the specified character pairs.
+		\begin{algorithmic}
+			\Procedure{Huffman\_Code}{$ S $}
+				\State $ Q \gets $ initialize empty priority queue with frequency as key and tree node as value
+				\\
+				\For{$ s \in S $}
+					\State $ node \gets $ create tree node with no children
+					\State $ node.frequency \gets s.frequency $
+					\State $ node.character \gets s.character $
+					\State Add $ node $ to $ Q $
+				\EndFor
+				\\
+				\While{$ |Q| \geq 2 $}
+					\State $ p_1 \gets Q.remove\_min() $
+					\State $ p_2 \gets Q.remove\_min() $
+					\\
+					\State $ node \gets $ create tree node with $ p_1 $ as left child and $ p_2 $ as right child
+					\State $ node.frequency \gets p_1.frequency + p_2.frequency $
+					\\
+					\State Add $ node $ to $ Q $
+				\EndWhile
+				\\
+				\If{$ |Q| = 1 $} \Comment When merging the last 2 nodes, we will get one final root node
+					\State \Return $ Q.remove\_min() $
+				\Else
+					\State \Return UNDEFINED
+				\EndIf
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+\end{document}
